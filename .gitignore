@@ -1,0 +1,31 @@
+# env
+.env
+.env.*
+!.env.example
+
+# generated
+litellm/config.yaml
+.pids/
+.deps/
+bin/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+$HOME/venvs/
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# logs
+logs/*.log
+
+# temp
+tmp/
+.DS_Store
+
+# CUDA keyring
+cuda-keyring_*.deb
