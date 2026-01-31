@@ -33,41 +33,41 @@ python -m pip install -c "${REPO_ROOT}/constraints.txt" -r "${REPO_ROOT}/require
 # llama.cpp (pinned)
 # =========================
 
-# : "${LLAMA_CPP_DIR:=${REPO_ROOT}/.deps/llama.cpp}"
-# : "${LLAMA_CPP_BUILD_DIR:=${LLAMA_CPP_DIR}/build}"
-# : "${LLAMA_SERVER_BIN:=${REPO_ROOT}/bin/llama-server}"
+: "${LLAMA_CPP_DIR:=${REPO_ROOT}/.deps/llama.cpp}"
+: "${LLAMA_CPP_BUILD_DIR:=${LLAMA_CPP_DIR}/build}"
+: "${LLAMA_SERVER_BIN:=${REPO_ROOT}/bin/llama-server}"
 
-# if [[ -z "${LLAMA_CPP_GIT_REF:-}" ]]; then
-#   echo "[err] LLAMA_CPP_GIT_REF not set in .env"
-#   exit 1
-# fi
+if [[ -z "${LLAMA_CPP_GIT_REF:-}" ]]; then
+  echo "[err] LLAMA_CPP_GIT_REF not set in .env"
+  exit 1
+fi
 
-# mkdir -p "${REPO_ROOT}/.deps" "${REPO_ROOT}/bin"
+mkdir -p "${REPO_ROOT}/.deps" "${REPO_ROOT}/bin"
 
-# if [[ ! -d "${LLAMA_CPP_DIR}/.git" ]]; then
-#   echo "[llama.cpp] clone"
-#   git clone https://github.com/ggerganov/llama.cpp "${LLAMA_CPP_DIR}"
-# fi
+if [[ ! -d "${LLAMA_CPP_DIR}/.git" ]]; then
+  echo "[llama.cpp] clone"
+  git clone https://github.com/ggerganov/llama.cpp "${LLAMA_CPP_DIR}"
+fi
 
-# echo "[llama.cpp] checkout ${LLAMA_CPP_GIT_REF}"
-# git -C "${LLAMA_CPP_DIR}" fetch --all --tags
-# git -C "${LLAMA_CPP_DIR}" checkout "${LLAMA_CPP_GIT_REF}"
+echo "[llama.cpp] checkout ${LLAMA_CPP_GIT_REF}"
+git -C "${LLAMA_CPP_DIR}" fetch --all --tags
+git -C "${LLAMA_CPP_DIR}" checkout "${LLAMA_CPP_GIT_REF}"
 
-# echo "[llama.cpp] build (CUDA)"
-# cmake -S "${LLAMA_CPP_DIR}" -B "${LLAMA_CPP_BUILD_DIR}" \
-#   -DGGML_CUDA=ON \
-#   -DCMAKE_BUILD_TYPE=Release
+echo "[llama.cpp] build (CUDA)"
+cmake -S "${LLAMA_CPP_DIR}" -B "${LLAMA_CPP_BUILD_DIR}" \
+  -DGGML_CUDA=ON \
+  -DCMAKE_BUILD_TYPE=Release
 
-# cmake --build "${LLAMA_CPP_BUILD_DIR}" -j
+cmake --build "${LLAMA_CPP_BUILD_DIR}" -j
 
-# if [[ -x "${LLAMA_CPP_BUILD_DIR}/bin/llama-server" ]]; then
-#   cp -f "${LLAMA_CPP_BUILD_DIR}/bin/llama-server" "${LLAMA_SERVER_BIN}"
-# elif [[ -x "${LLAMA_CPP_BUILD_DIR}/llama-server" ]]; then
-#   cp -f "${LLAMA_CPP_BUILD_DIR}/llama-server" "${LLAMA_SERVER_BIN}"
-# else
-#   echo "[err] llama-server not found in build output"
-#   exit 1
-# fi
+if [[ -x "${LLAMA_CPP_BUILD_DIR}/bin/llama-server" ]]; then
+  cp -f "${LLAMA_CPP_BUILD_DIR}/bin/llama-server" "${LLAMA_SERVER_BIN}"
+elif [[ -x "${LLAMA_CPP_BUILD_DIR}/llama-server" ]]; then
+  cp -f "${LLAMA_CPP_BUILD_DIR}/llama-server" "${LLAMA_SERVER_BIN}"
+else
+  echo "[err] llama-server not found in build output"
+  exit 1
+fi
 
-# chmod +x "${LLAMA_SERVER_BIN}"
-# echo "[ok] install complete"
+chmod +x "${LLAMA_SERVER_BIN}"
+echo "[ok] install complete"

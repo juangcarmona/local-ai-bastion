@@ -1,7 +1,7 @@
-# Generated into litellm/config.yaml via envsubst (run/router.sh).
-# One OpenAI-compatible endpoint; routes by model name.
+# litellm/config.template.yaml
 
 model_list:
+  # ===== REAL MODELS =====
   - model_name: ${CHAT_MODEL_NAME}
     litellm_params:
       model: openai/${CHAT_MODEL_NAME}
@@ -20,8 +20,26 @@ model_list:
       api_base: http://${HOST}:${EMBED_PORT}/v1
       api_key: "noop"
 
+  # ===== CLAUDE CODE ALIASES =====
+  - model_name: claude-3-5-sonnet
+    litellm_params:
+      model: openai/${CHAT_MODEL_NAME}
+      api_base: http://${HOST}:${CHAT_PORT}/v1
+      api_key: "noop"
+
+  - model_name: claude-3-opus
+    litellm_params:
+      model: openai/${CODE_MODEL_NAME}
+      api_base: http://${HOST}:${CODE_PORT}/v1
+      api_key: "noop"
+
+  - model_name: text-embedding-3-large
+    litellm_params:
+      model: openai/${EMBED_MODEL_NAME}
+      api_base: http://${HOST}:${EMBED_PORT}/v1
+      api_key: "noop"
+
 general_settings:
-  # prevent silent overload cascades
   request_timeout: 300
   max_parallel_requests: 32
 
