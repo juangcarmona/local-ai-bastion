@@ -27,6 +27,13 @@ model_list:
       api_base: http://${HOST}:${CHAT_PORT}/v1
       api_key: "noop"
 
+  # THIS ONE IS THE MOST IMPORTANT
+  - model_name: claude-3-5-sonnet-20250929
+    litellm_params:
+      model: openai/${CHAT_MODEL_NAME}
+      api_base: http://${HOST}:${CHAT_PORT}/v1
+      api_key: "noop"
+
   - model_name: claude-3-opus
     litellm_params:
       model: openai/${CODE_MODEL_NAME}
@@ -45,3 +52,6 @@ general_settings:
 
 router_settings:
   routing_strategy: simple-shuffle
+
+litellm_settings:
+  drop_params: true
