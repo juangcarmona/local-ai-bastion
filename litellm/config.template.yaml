@@ -21,14 +21,14 @@ model_list:
       api_key: "noop"
 
   # ===== CLAUDE CODE ALIASES =====
-  - model_name: claude-3-5-sonnet
+  - model_name: claude-sonnet-4-5
     litellm_params:
       model: openai/${CHAT_MODEL_NAME}
       api_base: http://${HOST}:${CHAT_PORT}/v1
       api_key: "noop"
 
   # THIS ONE IS THE MOST IMPORTANT
-  - model_name: claude-3-5-sonnet-20250929
+  - model_name: claude-sonnet-4-5-20250929
     litellm_params:
       model: openai/${CHAT_MODEL_NAME}
       api_base: http://${HOST}:${CHAT_PORT}/v1
