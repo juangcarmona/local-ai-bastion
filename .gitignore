@@ -21,7 +21,9 @@ dist/
 build/
 
 # logs
-logs/*.log
+logs/
+logs/**/*.log
+*logs/
 
 # temp
 tmp/
