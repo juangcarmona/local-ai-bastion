@@ -26,6 +26,18 @@ model_list:
       model: openai/${CHAT_MODEL_NAME}
       api_base: http://${HOST}:${CHAT_PORT}/v1
       api_key: "noop"
+  
+  - model_name: claude-sonnet-4-6
+    litellm_params:
+      model: openai/${CHAT_MODEL_NAME}
+      api_base: http://${HOST}:${CHAT_PORT}/v1
+      api_key: "noop"
+
+  - model_name: claude-haiku-4-5-20251001
+    litellm_params:
+      model: openai/${CODE_MODEL_NAME}
+      api_base: http://${HOST}:${CHAT_PORT}/v1
+      api_key: "noop"
 
   # THIS ONE IS THE MOST IMPORTANT
   - model_name: claude-sonnet-4-5-20250929
